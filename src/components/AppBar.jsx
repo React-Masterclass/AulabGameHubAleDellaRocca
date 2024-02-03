@@ -6,12 +6,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useState} from "react";
 import {useAppContext} from "../context/AppContext.jsx";
 
 export default function ButtonAppBar(props) {
     const { toggleSideBar } = useAppContext();
+    const location = useLocation();
+    const unviewable = location.pathname.includes("/login") || location.pathname.includes("/register")
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -22,7 +24,7 @@ export default function ButtonAppBar(props) {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ mr: 2, display: unviewable ? "none": ""}}
                     >
                         <MenuIcon onClick={toggleSideBar}/>
                     </IconButton>

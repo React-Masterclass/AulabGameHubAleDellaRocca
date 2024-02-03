@@ -1,99 +1,175 @@
 import React from 'react'
-import {Field, Form, Formik} from "formik";
-import * as Yup from "yup";
+import {Field, Form, Formik, useFormik} from "formik";
+import * as yup from "yup";
 import supabase from "../../DB/database.js";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {Avatar, Container, TextField} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined.js";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 function Register() {
     const navigate = useNavigate();
     const messageRequired = "Required"
 
-    const registerSchema = Yup.object().shape({
-        email: Yup.string()
+    const registerSchema = yup.object().shape({
+        email: yup.string()
             .email('Invalid email')
             .required(messageRequired),
-        name: Yup.string()
+        name: yup.string()
             .required(messageRequired),
-        surname: Yup.string()
+        surname: yup.string()
             .required(messageRequired),
-        password: Yup.string()
+        password: yup.string()
             .required(messageRequired)
-            .min(4, "La password deve contenere almeno 4 caratteri")
-            .max(8, "La password deve contenere al massimo 8 caratteri"),
-        repassword: Yup.string()
+            .min(4, "La password deve contenere almeno 6 caratteri"),
+        repassword: yup.string()
             .required()
-            .oneOf([Yup.ref('password'),null], 'Le password non corrispondono')
+            .oneOf([yup.ref('password'),null], 'Le password non corrispondono')
     })
 
-    const handleRegister = async (value) => {
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email: value.email,
-                password: value.password,
-                options: {
-                    data: {
-                        first_name: value.name,
-                        last_name: value.surname,
-                        email: value.email
+    const formik = useFormik({
+        initialValues:{
+            email:'',
+            password:''
+        },
+        validationSchema: registerSchema,
+        onSubmit: async (value) => {
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email: value.email,
+                    password: value.password,
+                    options: {
+                        data: {
+                            first_name: value.name,
+                            last_name: value.surname,
+                            email: value.email
+                        }
                     }
+                })
+                if (!error){
+                    console.log(data)
+                    navigate('/login');
+                }else {
+                    console.log(error)
+                    alert("Errore: " + error.message)
                 }
-            })
-            if (!error){
-                console.log(data)
-                navigate('/login');
-            }else {
+            }catch (error){
                 console.log(error)
                 alert("Errore: " + error.message)
             }
-        }catch (error){
-            console.log(error)
-            alert("Errore: " + error.message)
         }
-    }
+    })
+
 
     return (
-        <>
-            <Formik
-                initialValues={{
-                    email:'',
-                    password:''
+        <Container component="main" maxWidth="xs" sx={{
+            background:'white',
+            color:'black',
+            paddingBottom: 5,
+            borderRadius: 4
+        }}>
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                 }}
-                validationSchema={registerSchema}
-                onSubmit={(value) => handleRegister(value)}
             >
-                {({ errors, touched }) => (
-                    <Form>
-                        <label htmlFor="name">
-                            Name
-                            <Field name="name" type="text" />
-                            {errors.name && touched.name ? <div>{errors.name}</div> : null}
-                        </label>
-                        <label htmlFor="surname">
-                            Surname
-                            <Field name="surname" type="text" />
-                            {errors.surname && touched.surname ? <div>{errors.name}</div> : null}
-                        </label>
-                        <label htmlFor="email">
-                            Email
-                            <Field name="email" type="email" />
-                            {errors.email && touched.email ? <div>{errors.email}</div> : null}
-                        </label>
-                        <label htmlFor="password">
-                            Password
-                            <Field name="password" type="password" />
-                            {errors.password && touched.password ? <div>{errors.password}</div> : null}
-                        </label>
-                        <label htmlFor="repassword">
-                            Repeat password
-                            <Field name="repassword" type="password" />
-                            {errors.repassword && touched.repassword ? <div>{errors.repassword}</div> : null}
-                        </label>
-                        <button type="submit">Submit</button>
-                    </Form>
-                )}
-
-            </Formik>
-        </>
+                <Avatar sx={{ m: 1, bgcolor: '#1975d1' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
+                </Typography>
+                <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="name"
+                        label="Name"
+                        name="name"
+                        autoComplete="name"
+                        autoFocus
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.name)}
+                        helperText={formik.touched.password && formik.errors.name}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="surname"
+                        label="Surname"
+                        name="surname"
+                        autoComplete="surname"
+                        autoFocus
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.surname)}
+                        helperText={formik.touched.password && formik.errors.surname}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.email)}
+                        helperText={formik.touched.password && formik.errors.email}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="repassword"
+                        label="Repeat password"
+                        type="repassword"
+                        id="repassword"
+                        type="password"
+                        autoComplete="current-password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.repassword)}
+                        helperText={formik.touched.password && formik.errors.repassword}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign Up
+                    </Button>
+                </Box>
+                <Link href="#" variant="body2" to={"/login"} style={{ color: 'black', textDecoration:'underline', paddingBottom:2}}>
+                    {"Already have an account? Sign in"}
+                </Link>
+            </Box>
+        </Container>
     )
 }
 
