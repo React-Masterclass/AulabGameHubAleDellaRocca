@@ -1,6 +1,14 @@
 import React, {useState} from 'react'
 import Modal from "react-modal";
 import supabase from "../DB/database.js";
+import {ButtonGroup, Container, TextField} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Checkbox from '@mui/material/Checkbox';
+import Button from "@mui/material/Button";
+import FormLabel from '@mui/material/FormLabel';
+
+
 
 function NewGameModal({isOpen, onClose}) {
 
@@ -82,80 +90,135 @@ function NewGameModal({isOpen, onClose}) {
         setSelectedPlatforms([])
         onClose();
     }
-
+    const customStyles = {
+        borderRadius: "5px",
+        overlay: {
+            background: "rgba(0,0,0,0.56)"
+        },
+        content: {
+            width: '60%',
+            height: "80%",
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+        },
+    };
     return (
         <Modal
             isOpen={isOpen}
             onRequestClose={() => handleClose()}
             contentLabel="New Game"
+            style={customStyles}
         >
-            <h2>New Game</h2>
-            <form onSubmit={(event) => handleNewGame(event)}>
-                <label htmlFor="name">
-                    Name
-                    <input type="text" name={"name"} required={true}/>
-                </label>
-                <label htmlFor="img">
-                    Image
-                    <input type="file" name={"img"} required={true} onChange={uploadImage}/>
-                </label>
-                <label htmlFor="genre">
-                    Genres (write each genre separate by comma)
-                    <input type="text" name={"genre"} required={true} />
-                </label>
-                Platform
-                <label>
-                    <input
-                        type="checkbox"
-                        name="platform"
-                        value="PC"
-                        onChange={handleCheckboxChange}
-                    />{' '}
-                    PC
-                </label>
-                <br />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="platform"
-                        value="PlayStation 5"
-                        onChange={handleCheckboxChange}
-                    />{' '}
-                    PlayStation 5
-                </label>
-                <br />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="platform"
-                        value="PlayStation 4"
-                        onChange={handleCheckboxChange}
-                    />{' '}
-                    PlayStation 4
-                </label>
-                <br />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="platform"
-                        value="Xbox 360"
-                        onChange={handleCheckboxChange}
-                    />{' '}
-                    Xbox 360
-                </label>
-                <br />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="platform"
-                        value="Xbox One"
-                        onChange={handleCheckboxChange}
-                    />{' '}
-                    Xbox One
-                </label>
-                <br />
-                <button type={"submit"}> Create </button>
-            </form>
+            <Container sx={{
+                display:"flex",
+                alignItems:"center",
+                flexDirection:"column"
+            }}>
+                <Typography variant={"h2"} component={"h1"} sx={{color: "black"}}>
+                    New Game
+                </Typography>
+                <Box component="form"
+                     onSubmit={(event) => handleNewGame(event)}
+                     noValidate
+                     sx={{
+                         mt: 1,
+                         color:"black",
+                         alignItems:"center",
+                         flexDirection:"column",
+                         display:"flex",
+                         width:"100%"
+                     }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="name"
+                        label="Name"
+                        name="name"
+                        autoFocus
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        type={"file"}
+                        id="name"
+                        name="img"
+                        onChange={uploadImage}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="genre"
+                        label="Genres (write each genre separate by comma)"
+                        name="genre"
+                    />
+                    <FormLabel component="legend">Platform</FormLabel>
+                    <label>
+                        <Checkbox
+                            type="checkbox"
+                            name="platform"
+                            value="PC"
+                            onChange={handleCheckboxChange}
+                        />{' '}
+                        PC
+                    </label>
+                    <br />
+                    <div>
+                        <label>
+                            <Checkbox
+                                type="checkbox"
+                                name="platform"
+                                value="PlayStation 5"
+                                onChange={handleCheckboxChange}
+                            />{' '}
+                            PlayStation 5
+                        </label>
+                        <label>
+                            <Checkbox
+                                type="checkbox"
+                                name="platform"
+                                value="PlayStation 4"
+                                onChange={handleCheckboxChange}
+                            />{' '}
+                            PlayStation 4
+                        </label>
+                    </div>
+                    <br />
+                    <div>
+                        <label>
+                            <Checkbox
+                                type="checkbox"
+                                name="platform"
+                                value="Xbox 360"
+                                onChange={handleCheckboxChange}
+                            />{' '}
+                            Xbox 360
+                        </label>
+                        <label>
+                            <Checkbox
+                                type="checkbox"
+                                name="platform"
+                                value="Xbox One"
+                                onChange={handleCheckboxChange}
+                            />{' '}
+                            Xbox One
+                        </label>
+                    </div>
+
+                    <br />
+                    <ButtonGroup variant="contained">
+                        <Button type={"submit"} color={"success"}> Create </Button>
+                        <Button onClick={() => handleClose()} color={"error"}>Back</Button>
+                    </ButtonGroup>
+
+                </Box>
+            </Container>
+
+
         </Modal>
     )
 }

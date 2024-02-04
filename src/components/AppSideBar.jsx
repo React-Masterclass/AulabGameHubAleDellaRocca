@@ -11,8 +11,8 @@ function AppSideBar() {
 
     return (
         <div>
-            <Drawer open={sideBarOpen} onClose={toggleSideBar}>
-            <Genres onClose={(val) => toggleSideBar(val)} />
+            <Drawer open={sideBarOpen} onClose={toggleSideBar} >
+                <Genres onClose={(val) => toggleSideBar(val)} />
             </Drawer>
         </div>
     );

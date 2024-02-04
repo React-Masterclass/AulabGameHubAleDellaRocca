@@ -29,7 +29,13 @@ function GameCard({game}) {
 
     return (
         <div>
-            <Card>
+            <Card  sx={{
+                transition: 'transform 0.3s ease-in-out',
+                ':hover': {
+                    boxShadow: 20,
+                    transform: 'scale(1.05)',  // Cambia la scala per ottenere l'effetto desiderato
+                },
+            }}>
                     <CardMedia
                         component="img"
                         height="194"
@@ -46,11 +52,11 @@ function GameCard({game}) {
                 <CardActions sx={{justifyContent: "center"}}>
                     {game.slug ? (
                         <Button variant="outlined" onClick={() => navigate(`/game/${game.slug}`)}>
-                            Vai al gioco
+                            Go to the game
                         </Button>
                     ):(
                         <Button variant="outlined" onClick={() => navigate(`/game/custom/${game.name}`)}>
-                            Vai al gioco
+                            Go to the game
                         </Button>
                     )}
                 </CardActions>

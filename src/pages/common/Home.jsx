@@ -10,8 +10,9 @@ import SearchBar from "../../components/SearchBar.jsx";
 import {Container, createTheme, getContrastRatio, Grid, ThemeProvider} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {LoadingButton} from "@mui/lab";
-import {alpha} from "@mui/material/styles";
-
+import Button from "@mui/material/Button";
+import Divider from '@mui/material/Divider';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 Modal.setAppElement('#root');
 export default function Home() {
@@ -79,59 +80,65 @@ export default function Home() {
         },
     });
     return (
-        <Container fixed style={{ marginTop: '20px' }}>
-            <h1 style={{
+        <Container fixed style={{ marginTop: '20px', alignContent: "center" }}>
+            <Typography variant="h2" component="h1" style={{
                 margin: '0',
                 padding: '0',
-                fontSize: '2rem'
-            }}>Nuovi di tendenza</h1>
+            }}>
+                New and trending
+            </Typography>
+            <Typography variant={"subtitle1"}>
+                Based on player counts and release date
+            </Typography>
+            <Container style={{ marginTop: '20px'}}>
+                <SearchBar
+                    onChange={(value) => setSearch(value)}
+                    input={search}
+                />
+            </Container>
+
             {session && (
-                <Container>
-                    <button onClick={()=>setIsOpen(true)}>New Game</button>
+                <Container style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Button variant="contained" endIcon={<AddCircleIcon />} onClick={()=>setIsOpen(true)}>
+                        New Game
+                    </Button>
                     <NewGameModal
                         isOpen={isOpen}
                         onClose={()=>onClose()}
                     />
                 </Container>
             )}
-            <p>Dati basati su giocatori e data di pubblicazione</p>
-
-            <SearchBar
-                onChange={(value) => setSearch(value)}
-                input={search}
-            />
-
             <Container style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <ThemeProvider theme={themeBtn}>
                     {loading &&
-                    <LoadingButton loading variant="outlined" size={"large"} style={{bgcolor:'violet.main'}}>
-                        Submit
-                    </LoadingButton>
+                        <LoadingButton loading variant="outlined" size={"large"} sx={{bgcolor:'violet.main'}}>
+                            Submit
+                        </LoadingButton>
                     }
                 </ThemeProvider>
-
             </Container>
 
 
-            <Container fixed style={{ marginTop: '40px' }} >
+            <Container fixed style={{ marginTop: '40px' }}>
                 {error && <p style={{
                     color: "red"
                 }}>{error}</p>}
                 {usersGame.length !== 0 && (
-                    <Typography>
+                    <Typography variant={"h4"} sx={{mb:2}}>
                         Game created by users
                     </Typography>)}
                 <Grid container spacing={3}>
                     {usersGame.length !== 0 && usersGame.map((game) => (
-                        <Grid item xs={4}>
-                            <GameCard key={game.id} game={game}/>
+                        <Grid item xs={4} key={game.id}>
+                            <GameCard game={game}/>
                         </Grid>
                     ))}
                 </Grid>
+                {session && (<Divider sx={{ my: 4 }} />)}
                 <Grid container spacing={3}>
                     {game.length !== 0 && game.map((game) => (
-                        <Grid item xs={4}>
-                            <GameCard key={game.id} game={game}/>
+                        <Grid item xs={4} key={game.id}>
+                            <GameCard game={game}/>
                         </Grid>
                     ))}
                 </Grid>

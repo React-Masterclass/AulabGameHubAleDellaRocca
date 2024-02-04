@@ -25,8 +25,9 @@ export default function ButtonAppBar(props) {
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2, display: unviewable ? "none": ""}}
+                        onClick={toggleSideBar}
                     >
-                        <MenuIcon onClick={toggleSideBar}/>
+                        <MenuIcon/>
                     </IconButton>
                     {props.children}
                 </Toolbar>
