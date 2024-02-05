@@ -173,14 +173,6 @@ function GamePageCustom() {
                     <div className={""}>
                         <LiveChat game={game} />
                         <div className={""}>
-                            <p
-                                style={{
-                                    margin: '10px 0',
-                                    padding: '0',
-                                }}
-                            >
-                                Live chat
-                            </p>
                             <form
                                 className={""}
                                 onSubmit={handleMessageSubmit}

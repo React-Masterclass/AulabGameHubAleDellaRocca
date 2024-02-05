@@ -10,6 +10,9 @@ import useProfile from "../../hooks/useProfile.js";
 import SendIcon from '@mui/icons-material/Send';
 import Reviews from "../../components/Reviews.jsx";
 import ReviewModal from "../../components/ReviewModal.jsx";
+import {Card, Container, Grid, TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 export async function getSingleGame({ params }) {
     try {
         const response = await axios.get(`games/${params.game_slug}?key=${import.meta.env.VITE_TOKEN}`);
@@ -68,9 +71,9 @@ function GamePage() {
             .from('Favourite')
             .insert([
                 {
-                 id_gioco: game.id ,
-                 nome_gioco: game.name ,
-                 fk_user: session.user.id
+                    id_gioco: game.id ,
+                    nome_gioco: game.name ,
+                    fk_user: session.user.id
                 }
             ])
             .select()
@@ -129,82 +132,85 @@ function GamePage() {
     };
 
     return (
-        <div>
-            <div>
-                {game && (
-                    <article>
-                        <h1>{game.name}</h1>
-                        <img src={game.background_image} alt="" width={300}/>
-                        <div>
-                            Disponibile per:
-                            <p>{game.platforms.map((p) => p.platform.name).join(', ')}</p>
-                        </div>
-                        <div>
-                            {profile ? (
-                                fav.length !== 0 ? (
-                                        <StarIcon onClick={() => (removeFavorite())}></StarIcon>
-                                    ):(
-                                        <StarBorderOutlinedIcon onClick={() => (addFavorite())}></StarBorderOutlinedIcon>
-                                    )
-                            ):(<div></div>)}
+        <Container sx={{ width: '100%' }}>
+            <Grid container spacing={5} sx={{mt:2}}>
+                <Grid item xs={8}>
+                    <Container>
+                        {game && (
+                            <Card sx={{
+                                padding:"10px"
+                            }}>
+                                <h1>{game.name}</h1>
+                                <img src={game.background_image} alt="" width={300}/>
+                                <Container>
+                                    Disponibile per:
+                                    <p>{game.platforms.map((p) => p.platform.name).join(', ')}</p>
+                                </Container>
+                                <Container sx={{cursor:"pointer" }}>
+                                    {profile ? (
+                                        fav.length !== 0 ? (
+                                            <StarIcon onClick={() => (removeFavorite())}></StarIcon>
+                                        ):(
+                                            <StarBorderOutlinedIcon onClick={() => (addFavorite())}></StarBorderOutlinedIcon>
+                                        )
+                                    ):("")}
+                                </Container>
+                            </Card>
+                        )}
+                    </Container>
+                    <Container>
+                        <Reviews
+                            review={review}
+                            game={game}
+                        />
+                        <Container sx={{display:"flex", mt:4}}>
+                            <Button onClick={openReviewModal} variant={"contained"}>New review</Button>
+                        </Container>
+                        <ReviewModal
+                            isOpen={isReviewModalOpen}
+                            onClose={closeReviewModal}
+                            gameId={game.id}
+                            gameName={game.slug}
+                        />
+                    </Container>
 
-                        </div>
-                    </article>
-                    )}
-            </div>
-            <div>
-                {profile && (
-                    <div className={""}>
-                        <LiveChat game={game} />
-                        <div className={""}>
-                            <p
-                                style={{
-                                    margin: '10px 0',
-                                    padding: '0',
-                                }}
-                            >
-                                Live chat
-                            </p>
-                            <form
-                                className={""}
-                                onSubmit={handleMessageSubmit}
-                            >
-                                <input
-                                    className={""}
-                                    type="text"
-                                    name="message"
-                                    placeholder="type your message..."
-                                />
-                                <button
-                                    type="submit"
-                                    className={""}
-                                >
-                                    Send
-                                    <SendIcon
-                                        style={{
-                                            marginLeft: '5px',
-                                        }}
+                </Grid>
+                <Grid item xs={4}>
+                    {profile && (
+                        <Container sx={{
+                            border:"2px solid black",
+                            borderRadius: "7px",
+                            backgroundColor:"rgba(4,179,194,0.44)",
+                            height: "500px",
+                            display:"flex",
+                            flexDirection:"column",
+                            justifyContent:"flex-end"
+                        }}>
+                            <LiveChat game={game} />
+                            <Container >
+                                <Box component="form" onSubmit={handleMessageSubmit} noValidate sx={{ display:"flex", mb:2}}>
+                                    <TextField
+                                        type="text"
+                                        name="message"
+                                        placeholder="type your message..."
+                                        fullWidth
                                     />
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                )}
-            </div>
-            <div>
-                <Reviews
-                    review={review}
-                    game={game}
-                />
-                <button onClick={openReviewModal}>New review</button>
-                <ReviewModal
-                    isOpen={isReviewModalOpen}
-                    onClose={closeReviewModal}
-                    gameId={game.id}
-                    gameName={game.slug}
-                />
-            </div>
-        </div>
+                                    <Button type="submit" variant={"contained"}>
+                                        Send
+                                        <SendIcon
+                                            style={{
+                                                marginLeft: '5px',
+                                            }}
+                                        />
+                                    </Button>
+                                </Box>
+                            </Container>
+                        </Container>
+                    )}
+                </Grid>
+
+            </Grid>
+        </Container>
 
     )
 }

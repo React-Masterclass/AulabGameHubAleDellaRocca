@@ -1,6 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import * as React from 'react';
+import {useState, useEffect, useRef } from 'react';
 import supabase from "../DB/database.js";
 import formatMessageDate from "../util/formatMessageDate.js";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import {Container} from "@mui/material";
 
 function LiveChat({ game }) {
     const [chat, setChat] = useState([]);
@@ -44,20 +51,34 @@ function LiveChat({ game }) {
     }, [chat]);
 
     return (
-        <div className={""} ref={chatRef}>
-            {chat &&
-                chat.map((message) => (
-                    <article key={message.id} className={"style.chat_message"}>
-                        <p className={"style.chat_username"}>{message.profile.username}</p>
-                        <div>
-                            <p className={"style.message"}>{message.content}</p>
-                            <p className={"style.timestamps"}>
-                                {formatMessageDate(message.created_at)}
-                            </p>
-                        </div>
-                    </article>
-                ))}
-        </div>
+        <Container sx={{maxHeight: '500px', overflowY: 'auto',scrollBehavior: "smooth"
+        }} ref={chatRef}>
+            <List >
+                {chat &&
+                    chat.map((message) => (
+                        <React.Fragment key={message.id}>
+                            <ListItem  alignItems="flex-start">
+                                <ListItemText
+                                    primary={message.content}
+                                    secondary={
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            {message.profile.username} <br/>
+                                            {formatMessageDate(message.created_at)}
+                                        </Typography>
+                                    }
+                                />
+                            </ListItem>
+                            <Divider component="li" />
+                        </React.Fragment>
+
+                    ))}
+            </List>
+        </Container>
     );
 }
 

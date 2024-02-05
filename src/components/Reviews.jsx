@@ -1,15 +1,20 @@
 import Review from "./Review.jsx";
+import Typography from "@mui/material/Typography";
+import {Container} from "@mui/material";
 
 function Reviews({ review, game}) {
 
+    console.log(review)
     return (
-        <div>
-            <h4>{game.name} Reviews</h4>
-            {review &&
+        <Container sx={{mt:5}}>
+            <Typography variant={"h4"}>{game.name} Reviews</Typography>
+            {review && review.length !== 0 ?
                 review.map((review) => (
                    <Review key={review.id} review={review}></Review>
-                ))}
-        </div>
+                )): (
+                    <Typography variant={"subtitle1"}>No reviews have been published yet.</Typography>
+                )}
+        </Container>
     );
 }
 
