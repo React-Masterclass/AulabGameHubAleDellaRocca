@@ -173,7 +173,6 @@ function GamePage() {
                             gameName={game.slug}
                         />
                     </Container>
-
                 </Grid>
                 <Grid item xs={4}>
                     {profile && (
@@ -187,13 +186,15 @@ function GamePage() {
                             justifyContent:"flex-end"
                         }}>
                             <LiveChat game={game} />
-                            <Container >
+                            <Container disableGutters>
                                 <Box component="form" onSubmit={handleMessageSubmit} noValidate sx={{ display:"flex", mb:2}}>
                                     <TextField
                                         type="text"
                                         name="message"
-                                        placeholder="type your message..."
+                                        placeholder="Type your message..."
                                         fullWidth
+                                        size={"small"}
+                                        // sx={{padding:"7px"}}
                                     />
                                     <Button type="submit" variant={"contained"}>
                                         Send
@@ -208,7 +209,6 @@ function GamePage() {
                         </Container>
                     )}
                 </Grid>
-
             </Grid>
         </Container>
 

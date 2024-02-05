@@ -147,7 +147,6 @@ function Register() {
                         fullWidth
                         name="repassword"
                         label="Repeat password"
-                        type="repassword"
                         id="repassword"
                         type="password"
                         autoComplete="current-password"

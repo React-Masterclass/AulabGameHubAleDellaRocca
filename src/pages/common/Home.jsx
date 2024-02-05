@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import GameCard from "../../components/GameCard";
 import axios from "../../axios/axios";
 import useDebounceSearch from "../../hooks/useDebounceSearch";
@@ -7,12 +7,13 @@ import supabase from "../../DB/database.js";
 import NewGameModal from "../../components/NewGameModal.jsx";
 import AppContext from "../../context/AuthContext.js";
 import SearchBar from "../../components/SearchBar.jsx";
-import {Container, createTheme, getContrastRatio, Grid, ThemeProvider} from "@mui/material";
+import {Container, createTheme, getContrastRatio, Grid, LinearProgress, ThemeProvider} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {LoadingButton} from "@mui/lab";
 import Button from "@mui/material/Button";
 import Divider from '@mui/material/Divider';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Box from "@mui/material/Box";
 
 Modal.setAppElement('#root');
 export default function Home() {
@@ -109,13 +110,11 @@ export default function Home() {
                 </Container>
             )}
             <Container style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ThemeProvider theme={themeBtn}>
-                    {loading &&
-                        <LoadingButton loading variant="outlined" size={"large"} sx={{bgcolor:'violet.main'}}>
-                            Submit
-                        </LoadingButton>
-                    }
-                </ThemeProvider>
+                {loading &&
+                    <Box sx={{ width: '100%' }}>
+                        <LinearProgress />
+                    </Box>
+                }
             </Container>
 
 
@@ -134,7 +133,7 @@ export default function Home() {
                         </Grid>
                     ))}
                 </Grid>
-                {session && (<Divider sx={{ my: 4 }} />)}
+                {usersGame.length !== 0 && (<Divider sx={{ my: 4 }} />)}
                 <Grid container spacing={3}>
                     {game.length !== 0 && game.map((game) => (
                         <Grid item xs={4} key={game.id}>

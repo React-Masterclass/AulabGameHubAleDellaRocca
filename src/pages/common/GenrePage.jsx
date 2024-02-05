@@ -2,6 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
 import axios from "../../axios/axios";
 import GameCard from "../../components/GameCard";
+import SearchBar from "../../components/SearchBar.jsx";
+import {Container, createTheme, getContrastRatio, Grid, LinearProgress, ThemeProvider} from "@mui/material";
+import useDebounceSearch from "../../hooks/useDebounceSearch.js";
+import Typography from "@mui/material/Typography";
+import {LoadingButton} from "@mui/lab";
+import Box from "@mui/material/Box";
 
 function GenrePage() {
 
@@ -9,6 +15,9 @@ function GenrePage() {
     const [game, setGame] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState();
+    const [search, setSearch] = useState('');
+    const debaouncehSearch = useDebounceSearch(search);
+    const [pagination, setPagination] = useState(1);
 
 
     useEffect(() => {
@@ -24,36 +33,79 @@ function GenrePage() {
             setLoading(false)
         })
     },[genre])
+    useEffect(() => {
+        setGame([]);
+        setError('');
+        setLoading(true);
+        axios.get(`games?key=${import.meta.env.VITE_TOKEN}&page=${pagination}&page_size=20&search=${search}`)
+            .then((response) => {
+                console.log(response)
+                setGame(response.data.results)
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.log(error)
+                if (error.response) {
+                    // Errore nella risposta del server (non 2xx)
+                    console.error('Errore nella risposta del server:', error.response.data);
+                } else if (error.request) {
+                    // La richiesta è stata fatta ma non è stata ricevuta una risposta
+                    console.error('Nessuna risposta ricevuta dalla richiesta.');
+                } else {
+                    // Errore durante la configurazione della richiesta
+                    console.error('Errore durante la configurazione della richiesta:', error.message);
+                }
+                setError(error.message);
+            })
+    }, [debaouncehSearch]);
 
+    const violetBase = '#7F00FF';
+    const themeBtn = createTheme({
+        palette: {
+            violet: {
+                main: violetBase,
+                contrastText: getContrastRatio(violetBase, '#fff') > 4.5 ? '#fff' : '#111',
+            },
+        },
+    });
     return (
-        <div style={{
-            width: "80%"
-        }}>
+        <Container fixed style={{ marginTop: '20px', alignContent: "center" }}>
             <h1 style={{
                 margin: '20px',
                 padding: '0',
                 fontSize: '2rem'
-            }}>Genere: {genre && genre.toUpperCase()}</h1>
-
-            <input type={"text"} placeholder={"Cerca il tuo gioco..."}></input>
-
-            {loading && <button aria-busy="true" className="outline">Please wait…</button>}
-
+            }}></h1>
+            <Typography variant="h2" component="h1" style={{
+                margin: '0',
+                padding: '0',
+            }}>
+                Genre: {genre && genre.toUpperCase()}
+            </Typography>
+            <Container style={{ marginTop: '20px'}}>
+                <SearchBar
+                    onChange={(value) => setSearch(value)}
+                    input={search}
+                />
+            </Container>
+            <Container style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {loading &&
+                    <Box sx={{ width: '100%' }}>
+                        <LinearProgress />
+                    </Box>
+                }
+            </Container>
             {error && <p style={{
                 color: "red"
             }}>{error}</p>}
 
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '10px',
-                gridAutoRows: 'minmax(100px, auto)'
-            }}>
+            <Grid container spacing={3}>
                 {game && game.map((game) => (
-                    <GameCard key={game.id} game={game}/>
+                    <Grid item xs={4} key={game.id}>
+                        <GameCard game={game}/>
+                    </Grid>
                 ))}
-            </div>
-        </div>
+            </Grid>
+        </Container>
     )
 }
 

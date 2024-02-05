@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import formatMessageDate from "../util/formatMessageDate.js";
 import supabase from "../DB/database.js";
-
+import Container from "@mui/material/Container";
+import {Card} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Rating from '@mui/material/Rating';
 function Review({review}) {
     const [username, setUsername] = useState("")
 
@@ -19,23 +22,25 @@ function Review({review}) {
         getUsername()
     }, []);
     return (
-        <div key={review.id}>
-            <div className={"style.comment_container"}>
-                <article>
-                    <p>{review.title}</p>
-                    <p>{review.content}</p>
-                    <div className={"style.comment_details"}>
-                        <p className={"style.detail"}>
+        <Container disableGutters key={review.id} sx={{
+            mt:5
+        }}>
+                <Card sx={{
+                    padding: "10px"
+                }}>
+                    <Typography variant={"h4"} component={"h1"}>{review.title}</Typography>
+                    <Rating defaultValue={review.value} readOnly></Rating>
+                    <Typography variant={"body1"}>{review.content}</Typography>
+                    <Container disableGutters sx={{mt:2}}>
+                        <Typography variant={"subtitle2"}>
                             Published by: {username}
-                        </p>
-                        <p className={"style.detail"}>
+                        </Typography>
+                        <Typography variant={"subtitle2"}>
                             {formatMessageDate(review.created_at)}
-                        </p>
-                        <p></p>
-                    </div>
-                </article>
-            </div>
-        </div>
+                        </Typography>
+                    </Container>
+                </Card>
+        </Container>
     )
 }
 
