@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import supabase from "../DB/database.js";
+import Button from "@mui/material/Button";
+import {ButtonGroup, Container} from "@mui/material";
 
 export default function Avatar({ url, size, onUpload }) {
     const [avatarUrl, setAvatarUrl] = useState(null);
@@ -24,7 +26,6 @@ export default function Avatar({ url, size, onUpload }) {
     useEffect(() => {
         if (url && !url.includes("discord")) downloadImage(url);
     }, [url]);
-    console.log(url)
     // funzione che controlla il path dell'immagine da inserire...
     async function uploadAvatar(event) {
         try {
@@ -55,11 +56,14 @@ export default function Avatar({ url, size, onUpload }) {
         }
     }
 
+    console.log(url)
+    console.log(avatarUrl)
+
     return (
         <div>
             {avatarUrl ? (
                 <img
-                    src={url || avatarUrl}
+                    src={avatarUrl || url}
                     alt="Avatar"
                     className="avatar image"
                     style={{
@@ -69,8 +73,10 @@ export default function Avatar({ url, size, onUpload }) {
                     }}
                 />
             ) : (
-                <div
-                    className="avatar no-image"
+                <img
+                    src={"https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"}
+                    alt="Avatar"
+                    className="avatar image"
                     style={{
                         height: size,
                         width: size,
@@ -78,23 +84,24 @@ export default function Avatar({ url, size, onUpload }) {
                     }}
                 />
             )}
-            <div style={{ width: size }}>
-                <button
-                    type="button"
-                    style={{
-                        marginTop: '10px',
-                    }}
-                >
-                    {uploading ? 'Uploading ...' : 'Upload'}
-                </button>
-                <input
-                    type="file"
-                    id="single"
-                    accept="image/*"
-                    onChange={uploadAvatar}
-                    disabled={uploading}
-                />
-            </div>
+            <Container disableGutters sx={{ width: size, mt:"5px"}}>
+                <ButtonGroup>
+                    {/*<Button variant={"contained"}>*/}
+                    {/*    {uploading ? 'Uploading ...' : 'Upload'}*/}
+                    {/*</Button>*/}
+                    <Button variant={"contained"} component={"label"}>
+                        Upload img
+                        <input
+                            type="file"
+                            id="single"
+                            accept="image/*"
+                            hidden
+                            onChange={uploadAvatar}
+                            disabled={uploading}
+                        />
+                    </Button>
+                </ButtonGroup>
+            </Container>
         </div>
     );
 }

@@ -124,7 +124,7 @@ export default function Home() {
                 }}>{error}</p>}
                 {usersGame.length !== 0 && (
                     <Typography variant={"h4"} sx={{mb:2}}>
-                        Game created by users
+                        Games created by users
                     </Typography>)}
                 <Grid container spacing={3}>
                     {usersGame.length !== 0 && usersGame.map((game) => (
