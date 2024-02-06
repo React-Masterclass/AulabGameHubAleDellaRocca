@@ -79,6 +79,7 @@ function Profile() {
             .eq("email", userEmail)
     }
 
+    console.log(profile)
     return (
             <Grid container spacing={3}>
                 <Grid item xs={2}>
@@ -104,6 +105,7 @@ function Profile() {
                                 <Box component="form"
                                      onSubmit={(event) => handleUpdateProfile(event)}
                                      noValidate
+                                     key={profile}
                                      sx={{
                                          mt: 1,
                                          color:"black",
@@ -121,6 +123,7 @@ function Profile() {
                                         name="first_name"
                                         onChange={() => setModify(true)}
                                         defaultValue={profile && profile.first_name}
+                                        // value={}
                                     />
                                     <TextField
                                         margin="normal"
