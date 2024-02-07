@@ -59,4 +59,4 @@ Piattaforma che mostra videogiochi, e da la possibilitá ai suoi utenti autentic
 
 ## Deployment
 
-* [x] https://aulab-game-hub-ale-della-rocca-by7d5k01f-alessandrors-projects.vercel.app/
+* [x] https://aulab-game-hub-ale-della-rocca.vercel.app/
