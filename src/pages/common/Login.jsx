@@ -55,13 +55,14 @@ function Login() {
             },
         });
 
+    console.log(location)
         const handleDiscordLogin = async () => {
             try {
                 const { data, error } = await supabase.auth.signInWithOAuth({
                     provider: 'discord',
-                    options:{
-                        redirectTo:"https://aulab-game-hub-ale-della-rocca.vercel.app/user/profile"
-                    }
+                    // options:{
+                    //     redirectTo:"https://aulab-game-hub-ale-della-rocca.vercel.app/user/profile"
+                    // }
                 });
                 console.log(data + error)
             } catch (error) {
