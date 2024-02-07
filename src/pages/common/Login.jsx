@@ -60,7 +60,7 @@ function Login() {
                 const { data, error } = await supabase.auth.signInWithOAuth({
                     provider: 'discord',
                     options:{
-                        redirectTo:"http://localhost:5173/user/profile"
+                        redirectTo:"https://aulab-game-hub-ale-della-rocca.vercel.app/user/profile"
                     }
                 });
                 console.log(data + error)
