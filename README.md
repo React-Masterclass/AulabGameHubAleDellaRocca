@@ -32,14 +32,14 @@ Piattaforma che mostra videogiochi, e da la possibilitá ai suoi utenti autentic
 
 ## Styling Solution o Component Library
 
-* [PicoCss](https://picocss.com/)
+* [Material UI](https://mui.com/)
 * CSS modules
 
 ## Pages
 
 * Home Page - Lista dei giochi disponibili e ricerca tra i giochi
-* Filter Page - Lista dei giochi secondo un filtro specifico
-* Single Game Page - Mostra dettagli sullo specifico gioco, se autenticato utente puó selezionarlo tra i preferiti e puo lasciare un commento sul gioco.
+* Genre Page - Lista dei giochi secondo un genere specifico
+* Single Game Page - Mostra dettagli sullo specifico gioco, se autenticato utente puó selezionarlo tra i preferiti e puo lasciare una recensione sul gioco.
 * Login Page - Possibilitá di autenticazione ( email, OAuth ( discord ) )
 * Register Page - Possibilitá di registrare Utente con Email
 * Account Page - Dettaglio profilo Utente, Mostra dati utente autenticato
@@ -48,16 +48,15 @@ Piattaforma che mostra videogiochi, e da la possibilitá ai suoi utenti autentic
 ## API + User Interaction
 
 * [x] Utenti possono cercare un gioco con una query
-* [x] Utenti possono cliccare su un gioco per vederne il dettaglio e eventuali reviews
-* [x] Utenti possono filtrare su un gioco basandosi su un parametro
+* [x] Utenti possono cliccare su un gioco per vederne il dettaglio e eventuali recensioni
+* [x] Utenti possono filtrare su dei giochi basandosi sul genere
 * [x] Utenti loggati possono caricare informazioni profilo ( nome, cognome, avatar, username, ecc... )
 * [x] Utenti loggati possono lasciare una review su un gioco specifico
 * [x] Utenti loggati creare una lista di giochi preferiti
 * [x] Utenti loggati possono rimuovere un gioco dai preferiti
 * [x] Uteni loggati possono chattare live su un gioco specifico
-* Context API / Global state management library
-    * Utenti loggati possono condividere dati all'interno dell'applicazione
+
 
 ## Deployment
 
-* [ ] Allega il link dove l applicazione verrá esposta online.
+* [x] https://aulab-game-hub-ale-della-rocca-by7d5k01f-alessandrors-projects.vercel.app/

@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import Home from "../pages/common/Home.jsx";
 import Login from "../pages/common/Login.jsx";
 import Register from "../pages/common/Register.jsx";
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <Layout/>,
         children: [
+            {
+                path: '/',
+                element: <Navigate to="/home" />,
+            },
             {
                 path: '/home',
                 element: <Home />,
@@ -35,10 +39,6 @@ const router = createBrowserRouter([
                         path: 'profile',
                         element: <Profile />,
                     },
-                    // {
-                    //     path: '/settings',
-                    //     element: <Settings />,
-                    // },
                 ],
             },
             {
@@ -55,11 +55,6 @@ const router = createBrowserRouter([
                 element: <GamePageCustom />,
                 loader: getSingleGameCustom,
             },
-            // {
-            //     path: '/game/:id/comment',
-            //     element: <CommentPage />,
-            //     loader: getSingleGame,
-            // },
         ],
     },
 ]);

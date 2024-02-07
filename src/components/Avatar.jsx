@@ -84,11 +84,8 @@ export default function Avatar({ url, size, onUpload }) {
                     }}
                 />
             )}
-            <Container disableGutters sx={{ width: size, mt:"5px"}}>
+            <Container disableGutters sx={{ml: 0, width: size, mt:"5px", display:"flex", justifyContent:"center"}}>
                 <ButtonGroup>
-                    {/*<Button variant={"contained"}>*/}
-                    {/*    {uploading ? 'Uploading ...' : 'Upload'}*/}
-                    {/*</Button>*/}
                     <Button variant={"contained"} component={"label"}>
                         Upload img
                         <input

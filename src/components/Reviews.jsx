@@ -4,7 +4,6 @@ import {Container} from "@mui/material";
 
 function Reviews({ review, game}) {
 
-    console.log(review)
     return (
         <Container sx={{mt:5}}>
             <Typography variant={"h4"}>{game.name} Reviews</Typography>

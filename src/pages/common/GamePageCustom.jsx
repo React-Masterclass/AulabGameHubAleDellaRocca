@@ -147,6 +147,7 @@ function GamePageCustom() {
         setReviewModalOpen(false);
         setUpdated(true)
     };
+    console.log(game)
 
     return (
         <Container sx={{ width: '100%' }}>
@@ -188,7 +189,7 @@ function GamePageCustom() {
                             isOpen={isReviewModalOpen}
                             onClose={closeReviewModal}
                             gameId={game.id}
-                            gameName={game.slug}
+                            gameName={game.name}
                         />
                     </Container>
                     </Grid>

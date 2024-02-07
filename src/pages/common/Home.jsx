@@ -121,7 +121,7 @@ export default function Home() {
             <Container fixed style={{ marginTop: '40px' }}>
                 {error && <p style={{
                     color: "red"
-                }}>{error}</p>}
+                }}>{error} Refresh the page</p>}
                 {usersGame.length !== 0 && (
                     <Typography variant={"h4"} sx={{mb:2}}>
                         Games created by users

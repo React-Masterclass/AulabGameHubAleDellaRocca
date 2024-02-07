@@ -6,15 +6,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {useAppContext} from "../context/AppContext.jsx";
+import {AccountCircle} from "@mui/icons-material";
 
 export default function ButtonAppBar(props) {
     const { toggleSideBar } = useAppContext();
     const location = useLocation();
     const unviewable = location.pathname.includes("/login") || location.pathname.includes("/register")
-
+    const navigate = useNavigate();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -27,8 +28,11 @@ export default function ButtonAppBar(props) {
                         sx={{ mr: 2, display: unviewable ? "none": ""}}
                         onClick={toggleSideBar}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
+                    <Button color="inherit" onClick={() => navigate("/home")}>Home</Button>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    </Typography>
                     {props.children}
                 </Toolbar>
             </AppBar>

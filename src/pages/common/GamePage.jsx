@@ -158,12 +158,12 @@ function GamePage() {
                             </Card>
                         )}
                     </Container>
-                    <Container>
+                    <Container >
                         <Reviews
                             review={review}
                             game={game}
                         />
-                        <Container sx={{display:"flex", mt:4}}>
+                        <Container disableGutters sx={{display:"flex", mt:4}}>
                             <Button onClick={openReviewModal} variant={"contained"}>New review</Button>
                         </Container>
                         <ReviewModal

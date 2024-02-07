@@ -4,6 +4,11 @@ import supabase from "../DB/database.js";
 import AppBar from "@mui/material/AppBar";
 import ButtonAppBar from "./AppBar.jsx";
 import Button from "@mui/material/Button";
+import {Container} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import {AccountCircle} from "@mui/icons-material";
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 
 function AppNavBar(props) {
 
@@ -24,9 +29,26 @@ function AppNavBar(props) {
         return (
             <>
                 <ButtonAppBar>
-                    <Button color="inherit" onClick={() => navigate("/home")}>Home</Button>
-                    <Button color="inherit" onClick={() => navigate("/user/profile")}>Profile</Button>
-                    <Button color="inherit" onClick={() => handleLogout()}>Logout</Button>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        color="inherit"
+                        onClick={() => navigate("/user/profile")}
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        color="inherit"
+                        onClick={() => handleLogout()}
+                    >
+                        <LogoutIcon />
+                    </IconButton>
                 </ButtonAppBar>
                 {props.children}
             </>
@@ -37,7 +59,6 @@ function AppNavBar(props) {
     return (
         <>
             <ButtonAppBar>
-                <Button color="inherit" onClick={() => navigate("/home")}>Home</Button>
                 <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
                 <Button color="inherit" onClick={() => navigate("/register")}>Register</Button>
             </ButtonAppBar>

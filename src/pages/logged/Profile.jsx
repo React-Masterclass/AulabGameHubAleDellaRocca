@@ -156,13 +156,13 @@ function Profile() {
                                         onChange={() => setModify(true)}
                                         defaultValue={profile && profile.username}
                                     />
-                                    <Button type={"submit"} disabled={!modify}> Update </Button>
+                                    <Button variant={"contained"} type={"submit"} disabled={!modify}> Update </Button>
                                 </Box>
                             </Container>
 
                         </TabPanel>
                         <TabPanel value="2">
-                            <Container sx={{width:"50%"}}>
+                            <Container sx={{ml:0,width:"50%"}}>
                                 <Accordion>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -183,11 +183,11 @@ function Profile() {
                                         aria-controls="panel1-content"
                                         id="panel1-header"
                                     >
-                                        Your reviews
+                                        Your reviews (click to view)
                                     </AccordionSummary>
-                                    <AccordionDetails>
+                                    <AccordionDetails >
                                         {profile && profile.reviews.map( (rev) => (
-                                            <li key={rev.id}><Link to={"/game/" + rev.game_name}>{rev.game_name}</Link></li>
+                                            <li key={rev.id}><Link to={"/game/" + rev.game_name} style={{color:"black"}}>{rev.game_name}</Link></li>
                                         ))}
                                     </AccordionDetails>
                                 </Accordion>

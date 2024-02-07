@@ -64,10 +64,11 @@ function LiveChat({ game }) {
                                         <Typography
                                             sx={{ display: 'inline' }}
                                             component="span"
-                                            variant="body2"
+                                            variant="caption"
                                             color="text.primary"
                                         >
-                                            {message.profile.username} <br/>
+                                            Sent by: {message.profile.username}
+                                            <br/>
                                             {formatMessageDate(message.created_at)}
                                         </Typography>
                                     }
