@@ -6,7 +6,6 @@ import SearchBar from "../../components/SearchBar.jsx";
 import {Container, createTheme, getContrastRatio, Grid, LinearProgress, ThemeProvider} from "@mui/material";
 import useDebounceSearch from "../../hooks/useDebounceSearch.js";
 import Typography from "@mui/material/Typography";
-import {LoadingButton} from "@mui/lab";
 import Box from "@mui/material/Box";
 
 function GenrePage() {

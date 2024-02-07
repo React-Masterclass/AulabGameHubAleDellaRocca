@@ -1,9 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import Modal from 'react-modal';
 import supabase from "../DB/database.js";
 import AppContext from "../context/AuthContext.js";
 import Typography from "@mui/material/Typography";
-import {ButtonGroup, Container, TextareaAutosize, TextField} from "@mui/material";
+import {ButtonGroup, Container, TextField} from "@mui/material";
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

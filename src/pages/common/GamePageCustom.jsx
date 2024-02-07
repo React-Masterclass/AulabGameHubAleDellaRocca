@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {useLoaderData, useNavigate} from "react-router-dom";
-import axios from "../../axios/axios";
 import AuthContext from "../../context/AuthContext.js";
 import supabase from "../../DB/database.js";
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';

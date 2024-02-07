@@ -1,14 +1,11 @@
 import React from 'react'
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import supabase from "../DB/database.js";
-import AppBar from "@mui/material/AppBar";
 import ButtonAppBar from "./AppBar.jsx";
 import Button from "@mui/material/Button";
-import {Container} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AccountCircle} from "@mui/icons-material";
 import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Login';
 
 function AppNavBar(props) {
 

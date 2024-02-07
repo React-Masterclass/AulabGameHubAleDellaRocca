@@ -6,10 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useAppContext} from "../context/AppContext.jsx";
-import {AccountCircle} from "@mui/icons-material";
 
 export default function ButtonAppBar(props) {
     const { toggleSideBar } = useAppContext();

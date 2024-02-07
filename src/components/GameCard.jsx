@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import supabase from "../DB/database.js";
 import {Card, CardActions, CardContent, CardMedia} from "@mui/material";
 import Button from "@mui/material/Button";

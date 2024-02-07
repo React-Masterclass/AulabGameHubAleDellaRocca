@@ -6,7 +6,8 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';import {Link} from "react-router-dom";
+import TabPanel from '@mui/lab/TabPanel';
+import {Link} from "react-router-dom";
 import Avatar from "../../components/Avatar.jsx";
 import {Accordion, AccordionDetails, AccordionSummary, Container, Grid, TextField} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -112,7 +113,10 @@ function Profile() {
                                          alignItems:"center",
                                          flexDirection:"column",
                                          display:"flex",
-                                         width:"50%"
+                                         width:"50%",
+                                         backgroundColor:"#fff",
+                                         padding:2,
+                                         borderRadius:"10px"
                                      }}>
                                     <TextField
                                         margin="normal"
@@ -123,7 +127,6 @@ function Profile() {
                                         name="first_name"
                                         onChange={() => setModify(true)}
                                         defaultValue={profile && profile.first_name}
-                                        // value={}
                                     />
                                     <TextField
                                         margin="normal"
