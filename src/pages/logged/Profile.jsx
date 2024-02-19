@@ -186,11 +186,12 @@ function Profile() {
                                         aria-controls="panel1-content"
                                         id="panel1-header"
                                     >
-                                        Your reviews (click to view)
+                                        Your reviews
                                     </AccordionSummary>
                                     <AccordionDetails >
                                         {profile && profile.reviews.map( (rev) => (
-                                            <li key={rev.id}><Link to={"/game/" + rev.game_name} style={{color:"black"}}>{rev.game_name}</Link></li>
+                                            // <li key={rev.id}><Link to={"/game/" + rev.game_name} style={{color:"black"}}>{rev.game_name}</Link></li>
+                                            <li key={rev.id}>{rev.game_name}</li>
                                         ))}
                                     </AccordionDetails>
                                 </Accordion>
