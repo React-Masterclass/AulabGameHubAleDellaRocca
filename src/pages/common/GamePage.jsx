@@ -13,6 +13,7 @@ import ReviewModal from "../../components/ReviewModal.jsx";
 import {Card, Container, Grid, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {padding} from "@mui/system";
 export async function getSingleGame({ params }) {
     try {
         const response = await axios.get(`games/${params.game_slug}?key=${import.meta.env.VITE_TOKEN}`);
@@ -142,16 +143,16 @@ function GamePage() {
                             }}>
                                 <h1>{game.name}</h1>
                                 <img src={game.background_image} alt="" width={300}/>
-                                <Container>
+                                <Container sx={{padding: 5}}>
                                     Disponibile per:
                                     <p>{game.platforms.map((p) => p.platform.name).join(', ')}</p>
                                 </Container>
                                 <Container sx={{cursor:"pointer" }}>
                                     {profile ? (
                                         fav.length !== 0 ? (
-                                            <StarIcon onClick={() => (removeFavorite())}></StarIcon>
+                                            <>Rimuovi dai preferiti <br/> <StarIcon onClick={() => (removeFavorite())}></StarIcon></>
                                         ):(
-                                            <StarBorderOutlinedIcon onClick={() => (addFavorite())}></StarBorderOutlinedIcon>
+                                            <>Aggiungi ai preferiti <br/> <StarBorderOutlinedIcon onClick={() => (addFavorite())}></StarBorderOutlinedIcon></>
                                         )
                                     ):("")}
                                 </Container>

@@ -9,7 +9,7 @@ import useProfile from "../../hooks/useProfile.js";
 import SendIcon from '@mui/icons-material/Send';
 import Reviews from "../../components/Reviews.jsx";
 import ReviewModal from "../../components/ReviewModal.jsx";
-import {Card, Grid, TextField} from "@mui/material";
+import {Card, CardMedia, Grid, TextField} from "@mui/material";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -158,17 +158,17 @@ function GamePageCustom() {
                                 padding:"10px"
                             }}>
                                 <h1>{game.name}</h1>
-                                <img src={url} alt="" width={300}/>
-                                <Container>
+                                <CardMedia component="img" image={url} alt="Immagine" sx={{ maxWidth: 300, maxHeight: 300 }} />
+                                <Container sx={{padding: 5}}>
                                     Disponibile per:
                                     <p>{game.platform.map((p) => p).join(', ')}</p>
                                 </Container>
                                 <Container sx={{cursor:"pointer" }}>
                                     {profile ? (
                                         fav.length !== 0 ? (
-                                            <StarIcon onClick={() => (removeFavorite())}></StarIcon>
+                                            <>Rimuovi dai preferiti <br/> <StarIcon onClick={() => (removeFavorite())}></StarIcon></>
                                         ):(
-                                            <StarBorderOutlinedIcon onClick={() => (addFavorite())}></StarBorderOutlinedIcon>
+                                            <>Aggiungi ai preferiti <br/> <StarBorderOutlinedIcon onClick={() => (addFavorite())}></StarBorderOutlinedIcon></>
                                         )
                                     ):("")}
 

@@ -140,14 +140,14 @@ function Login() {
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
-                        <Grid item>
-                            <Button variant="contained"
-                                    fullWidth
-                                    onClick={() =>  handleDiscordLogin()}
-                            >
-                                Entra con Discord <FontAwesomeIcon icon={faDiscord} style={{marginLeft:'5px'}}/>
-                            </Button>
-                        </Grid>
+                        {/*<Grid item>*/}
+                        {/*    <Button variant="contained"*/}
+                        {/*            fullWidth*/}
+                        {/*            onClick={() =>  handleDiscordLogin()}*/}
+                        {/*    >*/}
+                        {/*        Entra con Discord <FontAwesomeIcon icon={faDiscord} style={{marginLeft:'5px'}}/>*/}
+                        {/*    </Button>*/}
+                        {/*</Grid>*/}
                     </Grid>
                 </Box>
             </Container>
